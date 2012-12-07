@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+-->
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="jquery.mousewheel.js"></script>
+    <script type="text/javascript" src="jquery.anum.js"></script>
+    <script type="text/javascript" src="simple-grid.js"></script>
+    <script type="text/javascript" src="../slowScroll/slow-scroll.js"></script>
+    <!-- <script type="text/javascript" src="simple-grid-scroll.js"></script>
+    <script type="text/javascript" src="simple-grid-scroll-lite.js"></script> -->
+    <script type="text/javascript" src="simple-grid-scroll-v3.js"></script>
+    <!--
+    <script type="text/javascript" src="simple-grid-scroll-v2.js"></script>
+    -->
+
+    <script type="text/javascript" src="simple-grid-types.js"></script>
+
+    <script type="text/javascript" src="json2.js"></script>
+    <script type="text/javascript" src="uuid.js"></script>
+
+    <link type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/smoothness/jquery-ui.css" rel="stylesheet"/>
+    <link type="text/css" href="simple-grid.css" rel="stylesheet"/>
+    <link type="text/css" href="../slowScroll/slow-scroll.css" rel="stylesheet"/>
+    <style>
+        table{
+            border-collapse: collapse;
+        }
+        html, body {
+            width: 100%;
+        }
+        html, body, table
+        {
+            font-size: 12px;
+            font-family: Tahoma, Verdana,"Lucinda Console","Arial","Helvetica","sans-serif";
+        }
+        .cont{
+            padding: 2px;
+        }
+        .btns span{
+            cursor: pointer;
+            -moz-user-select:none; -khtml-user-select:none; -webkit-user-select:none; user-select: none;
+            padding: 4px;
+            border: 1px solid gray;
+            border-radius: 4px;
+            width: 100px;
+        }
+        .btns span:hover{
+            background-color: silver;
+        }
+    </style>
+</head>
+<body>
+<div class="btns">
+    <span id="add">add node</span>
+    <span id="remove">remove node</span>
+    <span id="clear">clear</span>
+    <span id="getData">getData</span>
+    <span id="dbl">groupBy</span>
+    <span id="filterBy">filterBy</span>
+    <span id="setType">setType</span>
+    <span id="huge">huge</span>
+    <span id="move" title="press ctrl to back">moveRow</span>
+    <span id="disable">disable</span>
+    <span id="hideSelCol" title="press ctrl to show ALL">showHideCol</span>
+    <span id="colFont" >colFont</span>
+    <span id="addCol" >addCol</span>
+</div>
+<br>
+<div id="menu" class="cont" style="position: relative; width: 600px; height: 220px;"></div>
+<div id="menu2" class="cont"></div>
+<div id="sGrid2" class="cont"></div>
+<div id="sGrid3" class="cont"></div>
+<span id="console" ></span>
+<script>
+    $().ready(function(){
+
+        $("#stopMouse").bind("mouseup click mousemove", function(ev){
+            ev.preventDefault();
+            return false;
+        });
+
+        var sGrid3 = new jqSimpleGrid($("#sGrid2"), [
+            ["test", "2ssssssssssssssssssssssssssssss3", "soo"],
+            ["test1", "23", "s"],
+            ["test1", "23", "s"],
+            ["test1", "23", "s"],
+            ["test1", "23", "s"],
+            ["test1", "23", "s"],
+            ["test1", "23", "s"],
+            ["test1", "23", "s"],
+            ["test1", "23", "s"],
+            ["test1", "23", "s"],
+            ["test2", "2", "soo"],
+                        ],
+                {model:[
+                    {title:"first Column", width: "100px", type:"number", align:"left", split: true},
+                    {title:"pXyecond", type:"ro", width: "100px", split: true, fixedSplit: true},
+                    {title:"third", type:"int", width: "100px", value:[0,1], split: true},
+                ]
+            , multiSelect: true, touchScroll: true, width: 220, height: 190, displayNative: true}
+        );
+
+
+        var scroll = new slowScroll(sGrid3._bodyDiv, {useWrap: false});
+
+        var sGrid2 = new jqSimpleGrid($("#sGrid3"), [
+            ["test", "2ssssssssssssssssssssssssssssss3", "soo"],
+            ["test1", "23", "s"],
+            ["test2", "2", "soo"],
+                        ],
+                {model:[
+                    {title:"first Column", width: "100px", type:"float", align:"left"},
+                    {title:"pXyecond", type:"ro", width: "100px", split: true},
+                    {title:"third", type:"int", width: "300px", value:[0,1]},
+                ]
+            , multiSelect: true, touchScroll: true, width: 220, height: 190}
+        );
+
+
+        sGrid2.headColumnFont(["", "72px verdana"]);
+        var sgData = [
+            [2, {value:true, type:"int"}],
+            [1,2, {value:[1], type:'mathRow'}, 4],
+            ["childs", {value:1, type:"nextItemGroup"}],
+            ["test", "2ssssssssssssssssssssssssssssss3", "soo"],
+            ["test2", {value:{value: false, title:"hello"}}, "up"],
+            ["test", "http://dsfd.com"],
+            ["test", "http://dsfd.com"],
+            ["test", "http://dsfd.com"],
+            ["test", "http://dsfd.com"],
+            ["test", "http://dsfd.com"],
+            ["test", "http://dsfd.com"],
+            ["test", "http://dsfd.com"],
+            ["test", "http://dsfd.com"],
+            ["test", "http://dsfd.com"],
+            ["test", "http://dsfd.com"],
+            ["test", "http://dsfd.com"],
+            ["test", '<script> alert(1)'],
+            [{value: "test323", type: "edit", align: "right"}],
+            ["childs", 1],
+            [undefined, "as2"],
+            [undefined, "test df asdf asf ad2"]
+            ];
+
+        var sgModel = [
+                    {title:"first Column", width: "100px", type:"float", align:"left"},
+                    {title:"second", align:"center", type:"ch", width: "50px"},
+                    {title:"second", type:"ro", width: "120px"},
+                    {title:"third", type:"mathRow", width: "80px", value:[0,1]},
+                ];
+
+        var sGrid = new jqSimpleGrid($("#menu"), sgData, {model:sgModel
+            , multiSelect: true, touchScroll: true, groupBy:0, twoClickEdit: false, height: 190});
+
+        var sGrid = new jqSimpleGrid($("#menu2"), sgData, {model:sgModel
+            , multiSelect: true, touchScroll: true, groupBy:0, twoClickEdit: false, width: 380, height: 190});
+
+        $("#add").click(function(){
+            console.log(sGrid.addRow([{value:"new node"}]));
+        });
+        $("#remove").click(function(){
+            //sGrid.removeRow(sGrid.getSelectedRowId());
+            sGrid.setRowClass(sGrid.getSelectedRowId(), "help");
+        });
+        $("#clear").click(function(){
+            sGrid.clear();
+        });
+        $(sGrid).bind(jqSimpleGrid.onClick, function(){
+           console.dir({type:"click", args: arguments});
+            //console.log(sGrid._hasScrollBar());
+        });
+        $(sGrid).bind(jqSimpleGrid.onDblClick, function(){
+            console.dir({type:"dbl click", args: arguments});
+        });
+        $(sGrid).bind(jqSimpleGrid.onCellSelect, function(){
+//            console.dir({type:"cell sel", args: arguments});
+        });
+        $(sGrid).bind(jqSimpleGrid.onRowSelect, function(){
+//            console.dir({type:"row sel", args: arguments});
+            setTimeout(function(){alert(12)}, 200);
+        });
+        $(sGrid).bind(jqSimpleGrid.onEditCell, function(){
+            console.dir({type:"edit cell", args: arguments});
+        });
+        $(sGrid).bind(jqSimpleGrid.onEditStop, function(){
+            console.dir({type:"edit stop", args: arguments});
+        });
+
+        $(sGrid).bind(jqSimpleGrid.onCellChanged, function(){
+            console.dir({type: "jqSimpleGrid.onCellChanged", args: arguments});
+        });
+
+        $(sGrid).bind(jqSimpleGrid.onScroll, function(){
+            //console.dir({type:"jqSimpleGrid.onScroll", args: arguments});
+        });
+
+        $(sGrid).bind(jqSimpleGrid.onTab, function(ev, oEv){
+            console.dir({type: "jqSimpleGrid.onTab", args: arguments});
+        });
+
+        $("#dbl").click(function(ev){
+            //console.dir(sGrid.getData());
+            var selItem = sGrid.getSelectedRowId();
+            sGrid.groupBy([0, 2]);
+            console.log(sGrid.getParentRow(selItem));
+            setTimeout(function(){
+                //sGrid.groupBy("");
+            }, 1000);
+        });
+        $("#filterBy").click(function(ev){
+            sGrid.filterBy(0, "test");
+            setTimeout(function(){
+                sGrid.filterBy(0, undefined);
+            }, 2000);
+        });
+        $("#setType").click(function(ev){
+            var row = sGrid.getSelectedRowId();
+            console.dir(sGrid.getSelectedRows());
+            sGrid.setCellType(row, 1, "edit");
+            sGrid.showHeader(false);
+            sGrid.setCellValue(row, 1, "argh");
+            setTimeout(function(){
+                sGrid.setCellType(row, 1, "link");
+                sGrid.showHeader(true);
+            }, 2000);
+        });
+
+        $("#getData").click(function(ev){
+            console.dir(sGrid.getData());
+            $(".simple-grid-body-div").append("<span/>");
+            $(".simple-grid-body-div").scrollTop(20);
+        });
+
+        $("#huge").click(function(){
+            var maxLen = 1000, data = [];
+            var genStr = function(){
+                var quidStr = "abcdefghijklmnopqrstuvwxyz0123456789-", quid = "";
+                for (var i = 0, l = 15; i < l; i++) {
+                    var pos = parseInt(l * Math.random());
+                    quid += quidStr.charAt(pos);
+                }
+                return quid;
+            };
+            for (var i = 0, l = maxLen; i < l; i++){
+                data.push([genStr(), genStr()]);
+            }
+            var date = new Date();
+            //console.profile();
+            sGrid.setData(data, {groupBy: 0});
+            //console.profileEnd();
+            var endData = new Date();
+            console.log("huge:" + (endData.getTime() - date.getTime()));
+        });
+
+
+        $("#move").click(function(ev){
+            var way = (ev.ctrlKey) ? sGrid.moveRowUp(sGrid.getSelectedRowId()) : sGrid.moveRowDown(sGrid.getSelectedRowId());
+            //sGrid.moveRow(sGrid.getSelectedRowId(), way);
+        });
+
+        $("#disable").click(function(ev){
+            sGrid.enable(!sGrid.enable());
+
+        });
+
+        $("#hideSelCol").click(function(ev){
+            if (ev.ctrlKey){
+                //show all
+                var model = sGrid.model(),
+                    shows = [];
+                for (var i = 0,l = model.length; i < l; i++){
+                    shows.push(i);
+                }
+                sGrid.showColumnByPos(shows, true);
+            } else {
+                var selCol = sGrid.getSelectedColPos();
+                if (selCol != undefined){
+                    sGrid.showColumnByPos(selCol, false);
+                }
+            }
+        });
+
+        $("#colFont").click(function(ev){
+            var selid = sGrid.getSelectedRowId();
+            sGrid.model(sGrid.model());
+            sGrid.columnFont(["8px verdana red",""]);
+            sGrid.columnColor(["green","", "blue"]);
+            sGrid.columnBgColor(["yellow","","green"]);
+            sGrid.altBgColor("");
+            sGrid.setCellStyle(sGrid.getSelectedRowId(), sGrid.getSelectedColPos(), "background-color:yellow; color: blue;");
+            sGrid.columnAlign(["left","right","justify"]);
+            sGrid.columnTitle(["left","right","justify"]);
+            sGrid.headColumnFont(["12px verdana"]);
+            sGrid.headColumnColor(["white"]);
+            sGrid.setData(sGrid.getDataLink());
+            sGrid.rowFont(selid, "31px bold");
+            setTimeout(function(){
+                //sGrid.columnFontByPos([0,1], "");
+                //sGrid.columnColorByPos([0,1], "");
+                //sGrid.columnBgColorByPos([0,1], "");
+                //sGrid.altBgColor("");
+
+            }, 2000);
+
+        });
+
+        $("#addCol").click(function(){
+            var model = sGrid.model();
+            model.push();
+            sGrid.addColumn(undefined, {title: "weeah", type: "edit"}, "zero");
+            console.dir(sGrid.getDataGrid());
+            console.log("---------------");
+            console.dir(sGrid.getDataValues());
+            sGrid.columnBgColor("yellow", 1);
+        });
+
+
+        if (console){
+            console.logf = function(str){
+                str = $("#console").html() + "<br>" + str;
+                $("#console").html(str);
+            }
+        }
+
+        var test = function(text){
+            var textP = this.text;
+            this.showText = function(){
+                console.log(textP);
+            };
+            this.setText = function(text){
+                if (text != undefined){
+                    textP = text;
+                }
+            }
+            this.getText = function(){
+                return textP;
+            }
+            this.setText(text);
+        };
+
+        var newText = function(text){
+            this.setText(text);
+            this.showTwo = function(){
+
+            }
+        };
+
+        newText.prototype = new test;
+
+        var t = new newText("this is text");
+        t.showText();
+
+        t.setText("two");
+        t.showText();
+
+
+        var d1 = new Date("2011");
+        var d2 = new Date("2010");
+
+        var arr = [[1,2],[5,d1],[3,d2],[1,4]];
+        //console.log(d1 < d2);
+        var sortCol = 1;
+        arr.sort(function(rowA, rowB){
+            if (rowA[sortCol] < rowB[sortCol]) return -1;
+            if (rowA[sortCol] > rowB[sortCol]) return 1;
+            return 0;
+        });
+        //console.dir(arr);
+
+        var data = [[1,2],[2,5],[3]];
+        for (var i = 0, l = data.length; i < l; i++){
+            console.log("i-"+i);
+            for (var j = 0, k = data[i].length; j<k; j++){
+                console.log("stop");
+                break;
+            }
+        }
+
+    });
+
+</script>
+
+<table>
+</table>
+<div id="stopMouse" style="width: 500px; height: 500px; border: 1px solid gray;"> stop mouse </div>
+</body>
+</html>

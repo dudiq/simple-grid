@@ -1,0 +1,198 @@
+/**
+* jQuery Simple Grid
+* @version: 0.2 - 2011.10.21
+* @author: dudiq
+* @licence: MIT http://www.opensource.org/licenses/mit-license.php
+**/
+.simple-grid{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: #fff;
+    border: 1px solid silver;
+    border-width: 0 1px 1px 0;
+}
+.simple-grid-disable .simple-grid-body-div, .simple-grid-disable .simple-grid-header-div{
+    opacity: 0.6;
+    filter:Alpha(Opacity=60);
+}
+.simple-grid-header-container, .simple-grid-body-container {
+    width:100%; table-layout: fixed;
+    border: 0px;
+    padding: 0px;
+    margin: 0px;
+    border-spacing: 0px;
+    border: 0px;
+    border-collapse: separate;
+}
+.simple-grid-header-div, .simple-grid-body-div{
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    overflow: hidden;
+    font: normal 12px Arial;
+    border: 1px solid silver;
+    border-width: 1px 0 0 1px;
+}
+.simple-grid-header-div{
+    top:0px;
+}
+.simple-grid-item, .simple-grid-header-div, .simple-grid-header{
+    /*only height value here*/
+    height: 24px;
+}
+.simple-grid-body-div{
+    /* only top value here*/
+    top: 24px;
+}
+
+.simple-grid-body-div{
+    bottom: 0px;
+}
+.simple-grid-header-div{
+    font-weight: bold;
+    text-align: left;
+    background-color: #D4D0C8;
+}
+.simple-grid-header{
+    position: relative;
+}
+.simple-grid-header, .simple-grid-item{
+    overflow: hidden;
+    white-space: nowrap;
+    padding: 0 3px;
+}
+.simple-grid tr td{
+    border: 1px solid #d6d6d6;
+    border-top: 0px;
+    border-left: 0px;
+}
+ /*scrolls*/
+
+.simple-grid-last-item{
+
+}
+.simple-grid-last-cell{
+    display: table;
+    height: 23px;
+    margin-bottom: -2px;
+    margin-top: -2px;
+    margin-left: -2px;
+    width: 2px;
+    background-color: white;
+}
+.simple-grid-bottom-helper{
+    height: 18px;
+}
+/*end scrolls*/
+
+
+.simple-grid-enable tr.simple-grid-row:hover,
+.simple-grid-enable tr.simple-grid-row:hover td,
+.simple-grid-enable tr.simple-grid-row:hover .simple-grid-last-cell
+{
+    background: #C4CCD3;
+}
+
+.simple-grid tr td.simple-grid-split,
+tr.simple-grid-row:hover td.simple-grid-split{
+    border-width: 0px;
+    border-bottom-width: 1px;
+    width: 4px;
+    cursor: e-resize;
+    background-color: silver !important;
+    padding: 0px;
+    margin: 0px;
+}
+
+.simple-grid-split-sel{
+    -moz-box-shadow: 5px 5px 5px #ccc;
+    -webkit-box-shadow: 5px 5px 5px #ccc;
+    box-shadow: 5px 5px 5px #ccc;
+}
+
+.simple-grid-row{
+    
+}
+
+/*even fixes for <IE7*/
+.simple-grid-even, .simple-grid-last-cell{
+    background-color: #eee;
+}
+.simple-grid-row:nth-child(even), .simple-grid-last-cell{
+    background-color: #eee;
+}
+
+
+.simple-grid-row-selected td{
+    background-color: #C4CCD3 !important;
+}
+.simple-grid-item-selected{
+
+}
+.simple-grid-cell-edit{
+    position: relative;
+    width: 100%;
+    height: 20px;
+}
+.simple-grid-cell, .simple-grid-header{
+    /*stop selecting*/
+    -moz-user-select:none; -khtml-user-select:none; -webkit-user-select:none; user-select: none;
+}
+.simple-grid-cell{
+    overflow: visible; /*for sliderType for example*/
+    position: relative;
+    display: block;
+    z-index: 0;
+}
+.simple-grid-next-item-group{
+    height: 14px;
+    width: 16px;
+    background: transparent url("images/simple-grid/sprite.gif") no-repeat scroll -0px -0px;
+    display: inline-block;
+}
+.simple-grid-row-group-closed .simple-grid-next-item-group{
+    background: transparent url("images/simple-grid/sprite.gif") no-repeat scroll -0px -16px;
+}
+.simple-grid-row-group-closed{
+
+}
+.simple-grid-row-group{
+
+}
+.simple-grid-cell-group{
+    height: 14px;
+    width: 14px;
+    float: left;
+    background: transparent url("images/simple-grid/sprite.gif") no-repeat scroll -18px -16px;
+    z-index: 1;
+    position: relative;
+}
+.simple-grid-cell-group-closed{
+    background: transparent url("images/simple-grid/sprite.gif") no-repeat scroll -18px -0px;
+}
+/*types*/
+.simple-grid-input, .simple-grid-combo {
+    border: 1px solid silver;
+    width: 100%;
+    height: 16px;
+}
+
+.simple-grid-combo{
+    height: 20px;
+}
+
+.simple-grid-checkbox{
+    border: none;
+}
+.simple-grid-ch-label{
+    width: 100%;
+}
+
+.simple-grid-dynamic-green {
+    color: green;
+}
+.simple-grid-dynamic-red {
+    color: red;
+}

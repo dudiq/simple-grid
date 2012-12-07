@@ -1,0 +1,56 @@
+<html>
+<head>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+</head>
+<body>
+<script>
+    $(function(){
+        console.info("testing");
+
+        var test1 = "",
+            test2 = [],
+            maxC = 10000,
+            maxT = 100,
+            bEnd,
+            bDate = new Date();
+
+        for (var i = 0; i < maxC; i++){
+            for (var j = 0; j < maxT; j++){
+                test1 += "<span/>" + "123";
+            }
+        }
+        //$("div").append(test1);
+        console.log("firstTest " + ((new Date()) - bDate));
+
+        //$("div").empty();
+
+        bDate = new Date();
+        for (var i = 0; i < maxC; i++){
+            for (var j = 0; j < maxT; j++){
+                test2.push("<span/>", "123");
+            }
+        }
+        test2.join("");
+        //$("div").append(test2.join(""));
+        console.log("secondTest " + ((new Date()) - bDate));
+
+	$("span").click(function(){
+		console.log($(this).text());
+	});
+
+    })
+
+
+</script>
+<div></div>
+
+<span>112312312</span>
+<span>sdfsdfasdfasdf</span>
+
+<div style="width: 20px; height: 25px; border: 1px solid gray; position: relative;">
+    <input type="file" style="font-size: 25px; position: absolute; right: 0px;">
+</div>
+
+</body>
+</html>
