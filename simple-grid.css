@@ -1,5 +1,7 @@
 /**
 * jQuery Simple Grid
+* https://github.com/dudiq/simple-grid
+*
 * @version: 0.2 - 2011.10.21
 * @author: dudiq
 * @licence: MIT http://www.opensource.org/licenses/mit-license.php
